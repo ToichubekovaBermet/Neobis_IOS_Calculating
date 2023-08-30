@@ -2,9 +2,15 @@ import UIKit
 import SnapKit
 
 class ViewController: BaseController {
+    var beforeOperator: Int = 0
+    var afterOperator: Int = 0
+    
+    var deleteText: Bool = false
+    
+    var selectedOperation: String = ""
+    
     var currentNumber: Int = 0
     var storedNumber: Int = 0
-    var selectedOperation: String = ""
     
     private lazy var label: UILabel = {
         let label = UILabel()
@@ -223,164 +229,125 @@ class ViewController: BaseController {
             make.top.equalToSuperview().inset(200)
         }
         buttonForAC.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(300)
-            make.trailing.equalToSuperview().inset(300)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(label.snp.bottom).offset(40)
+            make.leading.equalToSuperview().inset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForPlusMinus.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(300)
-            make.trailing.equalToSuperview().inset(200)
-            make.leading.equalToSuperview().inset(110)
+            make.top.equalTo(buttonForAC.snp.top)
+            make.leading.equalTo(buttonForAC.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForPercent.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(300)
-            make.trailing.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(210)
+            make.top.equalTo(buttonForPlusMinus.snp.top)
+            make.leading.equalTo(buttonForPlusMinus.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForDivision.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(300)
-            make.trailing.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(310)
+            make.top.equalTo(buttonForPercent.snp.top)
+            make.leading.equalTo(buttonForPercent.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
-        buttonForMultiply.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(400)
-            make.trailing.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(310)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        })
-        buttonForMinus.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(500)
-            make.trailing.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(310)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        })
-        buttonForPlus.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(600)
-            make.trailing.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(310)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        })
-        buttonForEquals.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(700)
-            make.trailing.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(310)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        })
+        
         buttonForSeven.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(400)
-            make.trailing.equalToSuperview().inset(300)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(buttonForAC.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForEight.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(400)
-            make.trailing.equalToSuperview().inset(200)
-            make.leading.equalToSuperview().inset(110)
+            make.top.equalTo(buttonForSeven.snp.top)
+            make.leading.equalTo(buttonForSeven.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForNine.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(400)
-            make.trailing.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(210)
+            make.top.equalTo(buttonForEight.snp.top)
+            make.leading.equalTo(buttonForEight.snp.trailing).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        })
+        
+        buttonForMultiply.snp.makeConstraints({ make in
+            make.top.equalTo(buttonForNine.snp.top)
+            make.leading.equalTo(buttonForNine.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForFour.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(500)
-            make.trailing.equalToSuperview().inset(300)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(buttonForSeven.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForFive.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(500)
-            make.trailing.equalToSuperview().inset(200)
-            make.leading.equalToSuperview().inset(110)
+            make.top.equalTo(buttonForFour.snp.top)
+            make.leading.equalTo(buttonForFour.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForSix.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(500)
-            make.trailing.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(210)
+            make.top.equalTo(buttonForFive.snp.top)
+            make.leading.equalTo(buttonForFive.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
-
+        buttonForMinus.snp.makeConstraints({ make in
+            make.top.equalTo(buttonForSix.snp.top)
+            make.leading.equalTo(buttonForSix.snp.trailing).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        })
         buttonForOne.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(600)
-            make.trailing.equalToSuperview().inset(300)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(buttonForFour.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForTwo.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(600)
-            make.trailing.equalToSuperview().inset(200)
-            make.leading.equalToSuperview().inset(110)
+            make.top.equalTo(buttonForOne.snp.top)
+            make.leading.equalTo(buttonForOne.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForThree.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(600)
-            make.trailing.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(210)
+            make.top.equalTo(buttonForTwo.snp.top)
+            make.leading.equalTo(buttonForTwo.snp.trailing).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        })
+        buttonForPlus.snp.makeConstraints({ make in
+            make.top.equalTo(buttonForThree.snp.top)
+            make.leading.equalTo(buttonForThree.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
         buttonForZero.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(700)
-            make.trailing.equalToSuperview().inset(200)
-            make.leading.equalToSuperview().inset(10)
-            make.width.equalTo(140)
+            make.top.equalTo(buttonForOne.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
+            make.width.equalTo(180)
             make.height.equalTo(80)
         })
-
+        
         buttonForPoint.snp.makeConstraints({ make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(700)
-            make.trailing.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(210)
+            make.top.equalTo(buttonForZero.snp.top)
+            make.leading.equalTo(buttonForZero.snp.trailing).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        })
+        buttonForEquals.snp.makeConstraints({ make in
+            make.top.equalTo(buttonForPoint.snp.top)
+            make.leading.equalTo(buttonForPoint.snp.trailing).offset(20)
             make.width.equalTo(80)
             make.height.equalTo(80)
         })
     }
 
 }
-
-
 
 // MARK: -  Selectors
 
@@ -399,26 +366,21 @@ extension ViewController {
     @objc func buttonTappedDivision(sender: UIButton) {
            selectedOperation = "/"
            storeCurrentNumber()
-        label.text = sender.currentTitle
-
     }
 
        @objc func buttonTappedMultiply(sender: UIButton) {
            selectedOperation = "x"
            storeCurrentNumber()
-           label.text = sender.currentTitle
        }
 
        @objc func buttonTappedMinus(sender: UIButton) {
            selectedOperation = "-"
            storeCurrentNumber()
-           label.text = sender.currentTitle
        }
 
        @objc func buttonTappedPlus(sender: UIButton) {
            selectedOperation = "+"
            storeCurrentNumber()
-           label.text = sender.currentTitle
        }
 
        @objc func buttonTappedEquals(sender: UIButton) {
@@ -428,7 +390,7 @@ extension ViewController {
     private func storeCurrentNumber() {
            if let currentNumberText = label.text, let number = Int(currentNumberText) {
                currentNumber = number
-               label.text = "0"
+               deleteText = true
            }
        }
 
@@ -454,6 +416,10 @@ extension ViewController {
 
     @objc func numberPressed(sender: UIButton) {
         let digit = sender.currentTitle
+                if deleteText {
+                    label.text = ""
+                    deleteText = false
+                }
         if let numberLabel = label.text {
             if numberLabel == "0" {
                 label.text = digit
